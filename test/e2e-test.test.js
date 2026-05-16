@@ -1,7 +1,7 @@
-import { expect, assert } from "chai";
+/*import { expect, assert } from "chai";
 import request from "supertest";
 import app from "../index.js";
-
+Solo lo voy a descomentar cuando vaya a hacer testing
 const url = "http://localhost:3000";
 
 describe("Inserte el nombre y el precio", () => {
@@ -17,7 +17,7 @@ describe("Inserte el nombre y el precio", () => {
   });
 });
 
-/*describe("Suite de pruebas e2e para el curso", () => {
+describe("Suite de pruebas e2e para el curso", () => {
   it("Esperamos un Hola mundo", (done) => {
     request(app)
       .get("/")
@@ -28,5 +28,4 @@ describe("Inserte el nombre y el precio", () => {
       });
     console.log("B");
   });
-});
-*/
+});*/
