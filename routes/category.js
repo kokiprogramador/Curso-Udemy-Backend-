@@ -1,29 +1,31 @@
 import express from "express";
-import serviceUsers from "../services/servicesUsers.js";
+import servicesCategory from "../services/servicesCategory.js";
 import {
-  schemaUserCreate,
-  updateUserSchema,
-  getUserSchema,
-} from "../schema/usersSchema.js";
+  getCategory,
+  createCategory,
+  updateCategory,
+} from "../schema/schemaCategory.js";
 import validatorHandler from "../middlewares/validator.handler.js";
+
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const getUsers = await serviceUsers.getAllUsers(req, res);
-    return res.send({ getUsers });
+    const categories = await servicesCategory.allCategory();
+    res.json(categories);
   } catch (error) {
     next(error);
   }
 });
+
 router.get(
   "/:id",
-  validatorHandler(getUserSchema, "params"),
+  validatorHandler(getCategory, "params"),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const oneUser = await serviceUsers.getUserById(id);
-      res.json(oneUser);
+      const category = await servicesCategory.oneCategory(id);
+      res.json(category);
     } catch (error) {
       next(error);
     }
@@ -32,12 +34,12 @@ router.get(
 
 router.post(
   "/",
-  validatorHandler(schemaUserCreate, "body"),
+  validatorHandler(createCategory, "body"),
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newUser = await serviceUsers.createUser(body);
-      return res.status(200).json(newUser);
+      const newCategory = await servicesCategory.createCategory(body);
+      res.json(newCategory);
     } catch (error) {
       next(error);
     }
@@ -46,13 +48,14 @@ router.post(
 
 router.patch(
   "/:id",
-  validatorHandler(updateUserSchema, "params"),
+  validatorHandler(getCategory, "params"),
+  validatorHandler(updateCategory, "body"),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       const body = req.body;
-      const updateUser = await servicesUsers.updateUser({ id, body });
-      return res.json(updateUser);
+      const updatesCategory = await servicesCategory.updateCategory(id, body);
+      res.json(updatesCategory);
     } catch (error) {
       next(error);
     }
@@ -62,8 +65,8 @@ router.patch(
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const userDelete = await servicesUsers.deleteUser({ id });
-    return res.json(userDelete);
+    const categoryDelete = await servicesCategory.deleteCategory(id, body);
+    res.json(categoryDelete);
   } catch (error) {
     next(error);
   }

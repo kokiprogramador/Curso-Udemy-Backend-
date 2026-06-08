@@ -8,12 +8,18 @@
     "start": "node index.js",
     "lint": "eslint",
     "test": "mocha --recursive",
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:all",
     "build": "pnpm install --no-frozen-lockfile"
   },
   "pnpm": {
     "overrides": {
       "serialize-javascript": "^7.0.5",
-      "diff": "^9.0.0"
+      "diff": "^9.0.0",
+      "uuid": "14.0.0",
+      "qs": "6.15.2"
     }
   },
   "keywords": [],
@@ -22,12 +28,14 @@
   "type": "module",
   "devDependencies": {
     "chai": "^6.2.2",
+    "dotenv": "^17.4.2",
     "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "mocha": "^11.7.5",
+    "mocha": "^11.7.6",
     "nodemon": "^3.1.14",
     "prettier": "^3.8.3",
+    "sequelize-cli": "^6.6.5",
     "supertest": "^7.2.2"
   },
   "dependencies": {
@@ -36,6 +44,10 @@
     "express": "^5.2.1",
     "faker": "^5.5.3",
     "glob": "13.0.6",
-    "joi": "^18.2.1"
+    "joi": "^18.2.1",
+    "mysql2": "^3.22.4",
+    "pg": "^8.21.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
   }
 }

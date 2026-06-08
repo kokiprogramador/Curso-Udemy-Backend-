@@ -9,21 +9,41 @@ import {
 
 const router = express.Router();
 
+router.get("/", async (req, res, next) => {
+  try {
+    const products = await productServices.getAllProducts(req, res);
+    res.send({ products });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get(
   "/:id",
   validatorHandler(getProductSchema, "params"),
-  async (req, res) => {
-    const getProduct = await productServices.getOneProduct;
-    return getProduct(req, res);
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const productOne = await productServices.getOneProduct(id);
+      return res.send({ productOne });
+    } catch (error) {
+      next(error);
+    }
   },
 );
 
 router.post(
   "/",
   validatorHandler(schemaProductCreate, "body"),
-  async (req, res) => {
-    const postProduct = await productServices.createNewProduct(req, res);
-    return postProduct;
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      console.log(body);
+      const createProduct = await productServices.createnewProduct(body);
+      return res.send(createProduct);
+    } catch (error) {
+      next(error);
+    }
   },
 );
 
@@ -31,21 +51,23 @@ router.patch(
   "/:id",
   validatorHandler(getProductSchema, "params"),
   validatorHandler(updateSchemaProduct, "body"),
-  async (req, res) => {
-    const patchProduct = await productServices.updateProduct(req, res);
-    return patchProduct;
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const updateProduct = await productServices.updateProduct(id, body);
+      return res.send({ updateProduct });
+    } catch (error) {
+      next(error);
+    }
   },
 );
 
-router.delete("/:id", async (req, res) => {
-  const deleteProduct = await productServices.deleteProduct(req, res);
-  return deleteProduct;
-});
-
-router.get("/", async (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   try {
-    const products = await productServices.getAllProducts(req, res);
-    return res.json(products);
+    const { id } = req.params;
+    const deleteProduct = productServices.deleteProduct(id);
+    return res.send({ deleteProduct });
   } catch (error) {
     next(error);
   }
