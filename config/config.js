@@ -1,7 +1,6 @@
-import dotenv from "dotenv";
+/*import dotenv from "dotenv";
 
 dotenv.config();
-
 export const config = {
   env: process.env.NODE_ENV || "dev",
   port: process.env.PORT || "3000",
@@ -11,3 +10,6 @@ export const config = {
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
 };
+
+console.log(config);
+*/
