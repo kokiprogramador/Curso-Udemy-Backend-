@@ -1,4 +1,4 @@
-/*import dotenv from "dotenv";
+import dotenv from "dotenv";
 
 dotenv.config();
 export const config = {
@@ -10,6 +10,3 @@ export const config = {
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
 };
-
-console.log(config);
-*/
